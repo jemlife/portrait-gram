@@ -1,6 +1,17 @@
-<h1>Portraitgram</h1>
 
-<%= @posts.each do |post| %>
-	<%= image_tag.image.url(:medium) %>
-	<%= post.caption %>
+<div class="posts-wrapper row">
+<% @post.each do |post| %>
+  <div class="post">
+		<div class= "post-head">
+			<div class="name">
+				Jeremy Greenwood
+				</div
+			</div>
+		  <div class="image center-block">
+    		<%= link_to image_tag("mesa.jpg", :size => "500x400"), post_path(post) %>
+		 </div>
+     <p class="caption">
+      <%= post.caption %>
+    </p>
+  </div>
 <% end %>

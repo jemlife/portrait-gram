@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
 
 before_action :set_post, only: [:show, :edit, :update, :destroy]
+
 	def index
 		@post = Post.all
 	end
@@ -14,8 +15,10 @@ before_action :set_post, only: [:show, :edit, :update, :destroy]
 
 	def create
 		if @post = Post.create(post_params)
+			flash[:success] = "Your post has been created!"
 			redirect_to posts_path
 		else
+			flash.now[:alert] = "Your post couldn't be created! Please check the form."
 			render :new
 		end
 	end
@@ -25,15 +28,21 @@ before_action :set_post, only: [:show, :edit, :update, :destroy]
 
 	def update
 		if @post.update(post_params)
+			flash[:success] = "Post updated!"
 			redirect_to posts_path
 		else
+			flash.now[:alert] = "Your post couldn't be updated! Please check the form."
 			render :edit
 		end
 	end
 
 	def destroy
-		@post.destroy
-		redirect_to root_path
+		if @post.destroy
+			flash[:success] = "Post has been successfully deleted!"
+			redirect_to root_path
+		else
+			render :destroy
+		end
 	end
 
 	private
